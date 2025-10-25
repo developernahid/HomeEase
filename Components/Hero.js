@@ -67,11 +67,10 @@ export const ServiceCategory = ({ title, featured, all }) => (
 export default function Hero() {
     return (
         <div className="bg-gray-50 text-gray-800 font-sans">
-            <Header />
             <main className="py-12 md:py-16">
                 <div className="container mx-auto px-4 lg:px-6">
                     <header className="text-center mb-12 md:mb-16">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">All Services</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Our Services</h1>
                         <p className="text-lg text-gray-500">Browse through our comprehensive list of professional services</p>
                     </header>
                     <div className="space-y-12">
@@ -87,7 +86,6 @@ export default function Hero() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </div>
     );
 }
