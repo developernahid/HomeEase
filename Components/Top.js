@@ -1,4 +1,6 @@
-import React from 'react';
+"use client"
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 // SVG Icon Components
 const LocationPinIcon = () => (
@@ -22,7 +24,7 @@ const ACRepairIcon = ({ active }) => (
 );
 
 const ApplianceRepairIcon = ({ active }) => (
-     <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 ${active ? 'text-pink-500' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+    <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 ${active ? 'text-pink-500' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 7.5l.415-.207a.75.75 0 011.085.67V10.5m0 0h6m-6 0a.75.75 0 00.75.75h4.5a.75.75 0 00.75-.75V7.5a.75.75 0 00-.75-.75h-4.5A.75.75 0 0010.5 7.5v3z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 9.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3 14.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5h15V6a.75.75 0 00-.75-.75h-13.5A.75.75 0 004.5 6v13.5z" />
@@ -49,31 +51,43 @@ const ShiftingIcon = ({ active }) => (
 
 
 // Reusable Service Card Component
-const ServiceCard = ({ icon, title, active = false }) => (
-    <div className={`p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer transition-all duration-200 ${active ? 'bg-gray-100 rounded-lg border-b-2 border-pink-500' : 'border-b-2 border-transparent'}`}>
+const ServiceCard = ({ icon, title, active, href = false }) => (
+    <Link href={href} className={`p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:rounded-lg hover:border-b-2 hover:border-pink-500`}>
         {icon}
         <p className={`text-sm font-medium ${active ? 'text-gray-800' : 'text-gray-600'}`}>{title}</p>
-    </div>
+    </Link >
 );
+
+
 
 
 // Main Component
 const PersonalAssistant = () => {
+    const [userLocation, setUserLocation] = useState('Gulshan');
+
     const services = [
-        { title: "AC Repair Services", icon: <ACRepairIcon />, active: false },
-        { title: "Appliance Repair", icon: <ApplianceRepairIcon active />, active: true },
-        { title: "Cleaning", icon: <CleaningIcon />, active: false },
-        { title: "Shifting", icon: <ShiftingIcon />, active: false },
-        { title: "Shifting2", icon: <ShiftingIcon />, active: false },
+        { title: "AC Repair Services", icon: <ACRepairIcon />, active: false, href: "services/ac-repair-services" },
+        { title: "Appliance Repair", icon: <ApplianceRepairIcon />, active: false, href: "services/appliance-repair" },
+        { title: "Cleaning", icon: <CleaningIcon />, active: false, href: "services/cleaning" },
+        { title: "Shifting", icon: <ShiftingIcon />, active: false, href: "services/shifting" },
+        { title: "Electrical", icon: <ShiftingIcon />, active: false, href: "services/electrical" },
     ];
+
+    // useEffect(() => {
+    //     const userLocationByIP = Geolocation.getCurrentPosition();
+    //     setUserLocation(userLocationByIP);
+    // }, []);
+
+
+
 
     return (
         <div className="relative bg-white min-h-screen font-sans">
             {/* Background and Hero Section */}
             <div className="relative h-[60vh] flex flex-col items-center justify-center text-white">
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage:"url('/home-cleaning.jpg')"}}
+                    style={{ backgroundImage: "url('/home-cleaning.jpg')" }}
                 >
                     <div className="absolute inset-0 bg-black opacity-40"></div>
                 </div>
@@ -90,8 +104,8 @@ const PersonalAssistant = () => {
                             <LocationPinIcon />
                             <span className="font-semibold text-gray-700">Gulshan</span>
                         </button>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             placeholder="Find your service here e.g. AC, Car, Facial ..."
                             className="w-full text-gray-700 p-3 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-pink-400 rounded-md"
                         />
@@ -106,9 +120,9 @@ const PersonalAssistant = () => {
             <div className="pt-28 md:pt-24 lg:pt-16 pb-12 bg-gray-50">
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-lg shadow-md grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2 p-2">
-                       {services.map((service, index) => (
-                           <ServiceCard key={index} title={service.title} icon={service.icon} active={service.active} />
-                       ))}
+                        {services.map((service, index) => (
+                            <ServiceCard key={index} title={service.title} icon={service.icon} active={service.active} href={service.href} />
+                        ))}
                     </div>
                 </div>
             </div>

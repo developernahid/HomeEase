@@ -3,9 +3,9 @@ export const serviceCategories = [
         id: "ac",
         title: "AC Repair & Servicing",
         featured: [
-            { id: 1, title: "AC Servicing", description: "Professional AC maintenance and cleaning", image: "AC-repair.webp" },
-            { id: 2, title: "AC Repair", description: "Expert repair for all AC issues", image: "AC-repair.webp" },
-            { id: 3, title: "AC Installation", description: "Professional AC installation service", image: "AC-repair.webp" },
+            { id: 1, title: "AC Servicing", description: "Professional AC maintenance and cleaning", image: "/AC-repair.webp" },
+            { id: 2, title: "AC Repair", description: "Expert repair for all AC issues", image: "/AC-repair.webp" },
+            { id: 3, title: "AC Installation", description: "Professional AC installation service", image: "/AC-repair.webp" },
         ],
         all: ["AC Servicing", "AC Repair", "AC Installation", "AC Gas Refill", "AC Uninstallation", "Deep Cleaning"],
     },
@@ -90,7 +90,7 @@ export const serviceCategories = [
         all: ["Home Painting", "Wall Texture", "Waterproofing", "Exterior Painting", "Wallpaper Installation", "Color Consultation"],
     },
     {
-        id: "moving",
+        id: "shifting",
         title: "Moving & Shifting",
         featured: [
             { id: 1, title: "Home Shifting", description: "Complete home relocation service", image: "https://placehold.co/600x400/e2e8f0/334155?text=Home+Move" },
