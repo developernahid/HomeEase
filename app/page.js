@@ -7,15 +7,15 @@ import SafetyFeatures from '@/Components/Team';
 
 function App() {
     return (
-        <>
+        <section className='mx-4 lg:mx-16 '>
 
 
-        <Top></Top>
-        <Hero></Hero>
-        <HomeService></HomeService>
-        <SafetyFeatures></SafetyFeatures>
-        </>
-        
+            <Top></Top>
+            {/* <Hero></Hero> */}
+            <HomeService></HomeService>
+            <SafetyFeatures></SafetyFeatures>
+        </section>
+
     )
 }
 
