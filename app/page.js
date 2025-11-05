@@ -4,6 +4,8 @@ import Hero from '@/Components/Hero';
 import Top from '@/Components/Top';
 import HomeService from '@/Components/HomeService';
 import SafetyFeatures from '@/Components/Team';
+import HowItWorks from '@/Components/HowWork';
+import Support from '@/Components/Support';
 
 function App() {
     return (
@@ -14,6 +16,8 @@ function App() {
             {/* <Hero></Hero> */}
             <HomeService></HomeService>
             <SafetyFeatures></SafetyFeatures>
+            <HowItWorks></HowItWorks>
+            <Support></Support>
         </section>
 
     )

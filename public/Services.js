@@ -1,9 +1,10 @@
 export const serviceCategories = [
+
     {
         id: "ac",
         title: "AC Repair & Servicing",
         featured: [
-            { id: 1, title: "AC Servicing", description: "Professional AC maintenance and cleaning", image: "/AC-repair.webp" },
+            { id: 1, title: "AC Servicing", description: "Professional AC maintenance and cleaning", image: "/AC-repair.webp"},
             { id: 2, title: "AC Repair", description: "Expert repair for all AC issues", image: "/AC-repair.webp" },
             { id: 3, title: "AC Installation", description: "Professional AC installation service", image: "/AC-repair.webp" },
         ],

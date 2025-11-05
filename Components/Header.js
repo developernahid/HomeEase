@@ -24,7 +24,7 @@ const CheckIcon = () => (
 
 
 const Header = () => {
-
+    
     const user = JSON.parse(window.localStorage.getItem('user'));
     console.log(user)
 
@@ -108,3 +108,6 @@ const Header = () => {
 
 
 export default Header;
+
+
+

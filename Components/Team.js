@@ -85,7 +85,7 @@ const SafetyFeatures = () => {
                             {/* Right Side: Image */}
                             <div className="relative">
                                 <img 
-                                    src="/house-shifting.jpg" 
+                                    src="/plumbing-services.jpg" 
                                     alt="Team ensuring safety" 
                                     className="rounded-xl w-full h-auto object-cover"
                                 />

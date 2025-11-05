@@ -2,14 +2,14 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Support from '@/Components/Support';
 
 const AboutPage = () => {
     return (
-        <div
+        <><div
             className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
             style={{
-                backgroundImage:
-                    "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80')",
+                backgroundImage: "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80')",
             }}
         >
             {/* Overlay */}
@@ -28,8 +28,7 @@ const AboutPage = () => {
                         alt="Team"
                         width={300}
                         height={300}
-                        className="rounded-2xl shadow-lg mb-6"
-                    />
+                        className="rounded-2xl shadow-lg mb-6" />
                     <h2 className="text-3xl font-bold mb-2">About Our Team</h2>
                     <p className="text-indigo-100 text-center">
                         We are a passionate group of developers, designers, and innovators
@@ -64,8 +63,8 @@ const AboutPage = () => {
                     </div>
                 </div>
             </motion.div>
-        </div>
+        </div><Support></Support></>
     );
-};
 
+};
 export default AboutPage;
