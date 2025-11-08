@@ -4,8 +4,10 @@ import Hero from '@/Components/Hero';
 import Top from '@/Components/Top';
 import HomeService from '@/Components/HomeService';
 import SafetyFeatures from '@/Components/Team';
+import { serviceCategories } from '@/public/Services';
 
 function App() {
+    console.log(serviceCategories())
     return (
         <section className='mx-4 lg:mx-16 '>
 

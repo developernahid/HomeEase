@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
 
 const SearchIcon = () => (
     <svg className="absolute left-4 w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -24,11 +23,16 @@ const CheckIcon = () => (
 
 
 const Header = () => {
-
-    const user = JSON.parse(window.localStorage.getItem('user'));
-    console.log(user)
-
+    const [user, setUser] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const storedUser = window.localStorage.getItem('user').stringify;
+        // console.log(storedUser.stringify)
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const [openedRoute, setOpenedRoute] = useState("");
 
@@ -51,6 +55,11 @@ const Header = () => {
         }
     };
 
+    const handleActiveChange = (path) => {
+        setOpenedRoute(path);
+    }
+
+
 
 
     return (
@@ -64,12 +73,19 @@ const Header = () => {
                     </div>
 
                     <nav className="hidden lg:flex items-center gap-8">
-                        <Link href="/" className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600 '}`}>Home</Link>
-                        <Link href="/services" className={`text-sm font-medium transition-colors ${isActive('/services') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Services</Link>
-                        <Link href="/about" className={`text-sm font-medium transition-colors ${isActive('/about') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>About</Link>
-                        <Link href="/contact" className={`text-sm font-medium transition-colors ${isActive('/contact') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Contact</Link>
+                        <Link href="/" onClick={() => {
+                            handleActiveChange('/')
+                        }} className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600 '}`}>Home</Link>
+                        <Link href="/services" onClick={() => {
+                            handleActiveChange('/services')
+                        }} className={`text-sm font-medium transition-colors ${isActive('/services') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Services</Link>
+                        <Link href="/about" onClick={() => {
+                            handleActiveChange('/about')
+                        }} className={`text-sm font-medium transition-colors ${isActive('/about') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>About</Link>
+                        <Link href="/contact" onClick={() => {
+                            handleActiveChange('/contact')
+                        }} className={`text-sm font-medium transition-colors ${isActive('/contact') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Contact</Link>
                     </nav>
-
                     {
                         user ? (<div>
                             <div className="hidden sm:flex items-center gap-3">

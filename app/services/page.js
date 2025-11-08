@@ -1,12 +1,24 @@
-import { ServiceCategory } from '@/Components/Hero'
-import { serviceCategories } from '@/public/Services'
-import React from 'react'
+'use client';
+import { ServiceCategory } from '@/Components/Hero';
+import { serviceCategories } from '@/public/Services';
+import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const ServicePage = () => {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const categories = await serviceCategories();
+            setData(categories);
+        };
+        fetchData();
+    }, []);
+    console.log(data)
+
+
     return (
         <div className="space-y-12 mx-20 my-10">
             {
-                serviceCategories.slice(0, 3).map(category => (
+                data?.map(category => (
                     <ServiceCategory
                         key={category.id}
                         title={category.title}
@@ -18,4 +30,4 @@ const page = () => {
     )
 }
 
-export default page
+export default ServicePage
