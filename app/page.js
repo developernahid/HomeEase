@@ -15,7 +15,6 @@ function App() {
 
 
             <Top></Top>
-            {/* <Hero></Hero> */}
             <HomeService></HomeService>
             <SafetyFeatures></SafetyFeatures>
             <HowItWorks></HowItWorks>

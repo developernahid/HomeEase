@@ -127,16 +127,12 @@ const AcServices = () => {
     );
 };
 
-/**
- * Main App Component
- * Wraps the application and centers the HomeServices component.
- */
 export default function App() {
     return (
         <><div className="flex  w-full items-start justify-center bg-gray-50 font-sans">
             <HomeServices />
         </div>
-            <div className="flex min-h-screen w-full items-start justify-center bg-gray-50 font-sans">
+            <div className="flex  w-full items-start justify-center bg-gray-50 font-sans">
                 <AcServices />
             </div></>
     );
