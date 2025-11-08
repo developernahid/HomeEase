@@ -24,6 +24,10 @@ const CheckIcon = () => (
 
 const Header = () => {
     const [user, setUser] = useState(null);
+    
+    const user = JSON.parse(window.localStorage.getItem('user'));
+    console.log(user)
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -124,3 +128,6 @@ const Header = () => {
 
 
 export default Header;
+
+
+
