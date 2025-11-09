@@ -30,13 +30,13 @@ const Header = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const storedUser = window.localStorage.getItem('user').stringify;
-        // console.log(storedUser.stringify)
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+    // useEffect(() => {
+    //     const storedUser = window.localStorage.getItem('user').stringify;
+    //     // console.log(storedUser.stringify)
+    //     if (storedUser) {
+    //         setUser(JSON.parse(storedUser));
+    //     }
+    // }, []);
 
     const [openedRoute, setOpenedRoute] = useState("");
 

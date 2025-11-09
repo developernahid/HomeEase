@@ -12,3 +12,15 @@ export const GET = async (request) => {
     }
 
 }
+
+export const POST = async (request) => {
+    const body = await request.json();
+    console.log(body)
+    try {
+        await connect();
+        const res = await ServiceCategory.create(body);
+        return new Response(JSON.stringify({ message: "Service category created successfully" }), { status: 201 });
+    } catch (error) {
+        return new Response(JSON.stringify({ message: "Failed to create service category" }), { status: 500 })
+    };
+}
