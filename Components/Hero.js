@@ -38,15 +38,15 @@ export const ServiceCard = ({ image, title, description, href }) => (
     </div>
 );
 
-export const ServiceCategory = ({ title, featured, all }) => (
+export const ServiceCategory = ({ title, featured, all, id }) => (
     <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
             <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-            <Link href="/services" className="text-sm font-medium text-violet-600 hover:text-violet-700 transition-colors flex items-center gap-1">View All →</Link>
+            <Link href={`/services/${title.toLowerCase().replace(/ /g, '-')}`} className="text-sm font-medium text-violet-600 hover:text-violet-700 transition-colors flex items-center gap-1">View All →</Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {featured.map(service => (
-                <ServiceCard key={service.id} {...service} />
+                <ServiceCard key={service.id} {...service} href={`/services/${title.toLowerCase().replace(/ /g, '-')}`} />
             ))}
         </div>
         <div className="border-t border-gray-200 pt-6">
@@ -78,6 +78,7 @@ export default function Hero() {
                             serviceCategories.slice(0, 1).map(category => (
                                 <ServiceCategory
                                     key={category.id}
+                                    id={category.id}
                                     title={category.title}
                                     featured={category.featured}
                                     all={category.all}

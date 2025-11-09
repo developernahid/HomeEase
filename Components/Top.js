@@ -1,4 +1,5 @@
 "use client"
+import { serviceCategories } from '@/public/Services';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -63,20 +64,108 @@ const ServiceCard = ({ icon, title, active, href = false }) => (
 
 // Main Component
 const PersonalAssistant = () => {
-    const [userLocation, setUserLocation] = useState('Gulshan');
+    const [userLocation, setUserLocation] = useState('Your Location');
+    const [services, setServices] = useState([]);
 
-    const services = [
-        { title: "AC Repair Services", icon: <ACRepairIcon />, active: false, href: "services/ac-repair-services" },
-        { title: "Appliance Repair", icon: <ApplianceRepairIcon />, active: false, href: "services/appliance-repair" },
-        { title: "Cleaning", icon: <CleaningIcon />, active: false, href: "services/cleaning" },
-        { title: "Shifting", icon: <ShiftingIcon />, active: false, href: "services/shifting" },
-        { title: "Electrical", icon: <ShiftingIcon />, active: false, href: "services/electrical" },
-    ];
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     const userLocationByIP = Geolocation.getCurrentPosition();
-    //     setUserLocation(userLocationByIP);
-    // }, []);
+        const fetchData = async () => {
+            const categories = await serviceCategories();
+            setServices(categories.map(category => (
+                console.log(category),
+                {
+                    title: category.title.split(' ')[0],
+                    icon:
+                        category.id === 'ac-repair-services' ? <ACRepairIcon active={false} /> :
+                            category.id === 'appliance-repair' ? <ApplianceRepairIcon active={false} /> :
+                                category.id === 'cleaning' ? <CleaningIcon active={false} /> :
+                                    category.id === 'shifting' ? <ShiftingIcon active={false} /> :
+                                        category.id === 'electrical' ? <ShiftingIcon active={false} /> :
+                                            <ACRepairIcon active={false} />,
+                    active: false,
+                    href: `/services/${category.id}`
+                })));
+        };
+        fetchData();
+    }, [])
+
+    useEffect(() => {
+        if (!navigator?.geolocation) {
+            console.warn("Geolocation not supported by this browser.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const { latitude, longitude } = position.coords;
+
+                // Try reverse-geocoding to a human readable name using Nominatim (OpenStreetMap)
+                try {
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const addr = data.address || {};
+                        const place =
+                            addr.city ||
+                            addr.town ||
+                            addr.village ||
+                            addr.state ||
+                            addr.county ||
+                            data.display_name ||
+                            `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                        console.log(place)
+                        setUserLocation(place);
+                        return;
+                    }
+                } catch (err) {
+                    console.warn("Reverse geocoding failed:", err);
+                }
+
+                // Fallback to coordinates if reverse geocoding fails
+                setUserLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
+            },
+            (error) => {
+                console.warn("Geolocation error:", error);
+                // Keep default location or handle permission denied case here
+            },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+        );
+    }, []);
+
+    const handleSearch = (e) => {
+        const query = e.target.value.toLowerCase();
+        services.filter(service => {
+            const query = e.target.value.toLowerCase();
+
+            if (!query.trim()) {
+                // restore the original full list by re-fetching categories
+                serviceCategories()
+                    .then(categories => {
+                        setServices(categories.map(category => ({
+                            title: category.title.split(' ')[0],
+                            icon:
+                                category.id === 'ac-repair-services' ? <ACRepairIcon active={false} /> :
+                                    category.id === 'appliance-repair' ? <ApplianceRepairIcon active={false} /> :
+                                        category.id === 'cleaning' ? <CleaningIcon active={false} /> :
+                                            category.id === 'shifting' ? <ShiftingIcon active={false} /> :
+                                                category.id === 'electrical' ? <ShiftingIcon active={false} /> :
+                                                    <ACRepairIcon active={false} />,
+                            active: false,
+                            href: `/services/${category.id}`
+                        })));
+                    })
+                    .catch(err => console.warn("Failed to reload services:", err));
+                return;
+            }
+
+            // show only services that match the query
+            if (e.target.value === '') {
+                setServices(services);
+                return;
+            }
+            setServices(prev => prev.filter(s => s.title.toLowerCase().includes(query)));
+        });
+    }
 
 
 
@@ -102,9 +191,10 @@ const PersonalAssistant = () => {
                     <div className="bg-white rounded-lg shadow-2xl p-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-2">
                         <button className="w-full md:w-auto flex items-center justify-center p-3 bg-gray-100 rounded-md">
                             <LocationPinIcon />
-                            <span className="font-semibold text-gray-700">Gulshan</span>
+                            <span className="font-semibold text-gray-700">{userLocation}</span>
                         </button>
                         <input
+                            onChange={handleSearch}
                             type="text"
                             placeholder="Find your service here e.g. AC, Car, Facial ..."
                             className="w-full text-gray-700 p-3 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-pink-400 rounded-md"

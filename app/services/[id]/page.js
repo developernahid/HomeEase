@@ -10,9 +10,13 @@ const ServicePage = ({ params }) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        if (!Service) return;
-        const res = serviceCategories.find(category => category.id === Service);
-        setData(res ?? null);
+        const fetchData = async () => {
+            const categories = await serviceCategories();
+            if (!Service) return;
+            const res = categories.find(category => category.id === Service);
+            setData(res ?? null);
+        };
+        fetchData();
     }, [Service]);
 
     return (

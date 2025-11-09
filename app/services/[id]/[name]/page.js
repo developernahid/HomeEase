@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import Hero, { ServiceCard } from '@/Components/Hero';
 import { serviceCategories } from '@/public/Services';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import SafetyFeatures from '@/Components/Team';
 
 const DetailsPage = ({ params }) => {
     const resolvedParams = typeof React.use === 'function' ? React.use(params) : params;
@@ -17,10 +15,13 @@ const DetailsPage = ({ params }) => {
 
 
     useEffect(() => {
-        if (!Service) return;
-        const res = serviceCategories.find(category => category.id === resolvedParams.id.toLowerCase()) || [];
-        const data = res.featured.find(item => item.title.toLowerCase() === Service.toLowerCase());
-        setData(data ?? null);
+        const fetchData = async () => {
+            const categories = await serviceCategories();
+            const res = categories.find(category => category.id === resolvedParams.id.toLowerCase()) || [];
+            const data = res.featured.find(item => item.title.toLowerCase() === Service.toLowerCase());
+            setData(data ?? null);
+        };
+        fetchData();
     }, [Service, resolvedParams.id]);
 
 
