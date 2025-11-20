@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
+import { useAuth } from '@/context/AuthContext';
 import { serviceCategories } from '@/public/Services';
 import axios from 'axios';
 import Link from 'next/link';
@@ -10,6 +11,8 @@ const DetailsPage = ({ params }) => {
     const Service = resolvedParams?.name?.toLowerCase().split('-').join(' ');
     console.log(Service);
     console.log(resolvedParams.id)
+    const { user } = useAuth();
+    console.log(user)
 
     const [data, setData] = useState(null);
 
@@ -28,11 +31,12 @@ const DetailsPage = ({ params }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [form, setForm] = useState({
-        name: '',
-        email: '',
+        name: user?.username || '',
+        email: user?.email || '',
         location: '',
         contact: '',
         comment: '',
+        status: 'Pending',
     });
 
     useEffect(() => {
@@ -198,7 +202,7 @@ const DetailsPage = ({ params }) => {
 
                             <div>
                                 <label className="block text-xs text-gray-600 mb-1">Email</label>
-                                <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full border rounded px-3 py-2 text-sm" />
+                                <input name="email" type="email" value={form.email} disabled={true} onChange={handleChange} required className="w-full border rounded px-3 py-2 text-sm" />
                             </div>
 
                             <div>
