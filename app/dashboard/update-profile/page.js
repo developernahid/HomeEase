@@ -30,17 +30,10 @@ const UpdateProfilePage = () => {
     };
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({
-                    ...formData,
-                    photoURL: reader.result
-                });
-            };
-            reader.readAsDataURL(file); 
-        }
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        })
     };
 
     const handleSubmit = async (e) => {
@@ -49,9 +42,9 @@ const UpdateProfilePage = () => {
             await axios.put('/api/auth/me', formData);
             alert('Profile updated successfully');
             checkUser();
+            e.preventDefault();
         } catch (error) {
             console.error('Failed to update profile:', error);
-            alert('Failed to update profile');
         }
     };
 
@@ -70,18 +63,19 @@ const UpdateProfilePage = () => {
             <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Update Profile</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="flex flex-col items-center space-y-4">
-                    <Image
+                    {/* <Image
                         src={formData?.photoURL || '/placeholder-user.jpg'}
                         alt="Profile"
                         width={128}
                         height={128}
                         className="rounded-full"
-                    />
+                    /> */}
                     <input
-                        type="file"
+                        type="text"
                         name="photoURL"
+                        value={formData.photoURL}
                         onChange={handleFileChange}
-                        className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                        className="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
