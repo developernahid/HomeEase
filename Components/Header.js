@@ -45,8 +45,8 @@ const Header = ({ user }) => {
                 <div className="flex items-center justify-between py-4 gap-8">
                     <Link href="/" className="text-3xl font-bold text-violet-700">HomeEase</Link>
                     <div className="hidden md:flex flex-1 max-w-lg relative items-center">
-                        <SearchIcon />
-                        <input type="text" placeholder="Search for services..." className="w-full py-2.5 pl-12 pr-4 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-600/50 focus:border-violet-600" />
+                        {/* <SearchIcon />
+                        <input type="text" placeholder="Search for services..." className="w-full py-2.5 pl-12 pr-4 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-600/50 focus:border-violet-600" /> */}
                     </div>
 
                     <nav className="hidden lg:flex items-center gap-8">

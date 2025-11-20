@@ -47,3 +47,23 @@ export const GET = async () => {
         return NextResponse.json({ message: 'Invalid token', error: error.message }, { status: 401 });
     }
 };
+
+export const PUT = async (req) => {
+    await connect();
+    const { email, username, photoURL } = await req.json();
+
+    const query = {
+        email: email
+    }
+    console.log(photoURL)
+
+    try {
+        const updatedUser = await User.findOneAndUpdate(query, { username, photoURL }, { new: true });
+        if (!updatedUser) {
+            return NextResponse.json({ message: 'User not found' }, { status: 404 });
+        }
+        return NextResponse.json(updatedUser, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ message: 'Error updating user', error: error.message }, { status: 500 });
+    }
+}
