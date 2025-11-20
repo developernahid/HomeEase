@@ -21,6 +21,7 @@ const Header = ({ user }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openedRoute, setOpenedRoute] = useState("");
 
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setOpenedRoute(window.location.pathname);
@@ -53,12 +54,23 @@ const Header = ({ user }) => {
                         <Link href="/services" onClick={() => handleActiveChange('/services')} className={`text-sm font-medium transition-colors ${isActive('/services') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Services</Link>
                         <Link href="/about" onClick={() => handleActiveChange('/about')} className={`text-sm font-medium transition-colors ${isActive('/about') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>About</Link>
                         <Link href="/contact" onClick={() => handleActiveChange('/contact')} className={`text-sm font-medium transition-colors ${isActive('/contact') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Contact</Link>
+                        {
+                            !loading && (
+                                user ? (
+                                    <div className="hidden sm:flex items-center gap-3">
+                                        <Link href="/dashboard" onClick={() => handleActiveChange('/dashboard')} className={`text-sm font-medium transition-colors ${isActive('/dashboard') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Dashboard</Link>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            )
+                        }
                     </nav>
 
                     {!loading && (
                         user ? (
                             <div className="hidden sm:flex items-center gap-3">
-                                <Link href={"/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
+                                <Link href={"/dashboard/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
                                 <button onClick={handleLogout} className="w-full px-5 py-2.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
                             </div>
                         ) : (
@@ -85,7 +97,7 @@ const Header = ({ user }) => {
                                 {!loading && (
                                     user ? (
                                         <>
-                                            <Link href={"/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
+                                            <Link href={"/dashboard/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
                                             <button onClick={handleLogout} className="w-full px-5 py-2.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
                                         </>
                                     ) : (

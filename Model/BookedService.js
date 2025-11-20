@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const serviceSchema = new mongoose.Schema({
     id: {
-        type: Number,
+        // Accept numeric ids or string slugs (e.g., 'photography')
+        type: String,
         required: true
     },
     title: {
@@ -46,6 +47,12 @@ const bookedServiceSchema = new mongoose.Schema({
     comment: {
         type: String,
         trim: true
+    },
+    status: {
+        type: String,
+        trim: true,
+        default: 'Pending',
+        enum: ['Pending', 'Approved', 'Rejected']
     }
 }, { timestamps: true });
 
