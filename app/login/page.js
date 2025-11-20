@@ -1,12 +1,14 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,11 +30,8 @@ const LoginPage = () => {
 
             if (res.ok) {
                 const { user } = await res.json();
-                // Store user info in local storage
-                localStorage.setItem('user', JSON.stringify(user));
-                // Redirect to home page
+                login(user);
                 router.push('/');
-                // You might want to refresh the page to update the header
                 router.refresh();
             } else {
                 const { message } = await res.json();

@@ -1,8 +1,12 @@
 import axios from "axios"
 
 export const serviceCategories = async () => {
-    const res = await axios.get('/api/services');
+    const apiUrl = typeof window === 'undefined'
+        ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/services`
+        : '/api/services';
 
-    console.log(res?.data)
+    const res = await axios.get(apiUrl);
+
+    // console.log(res?.data)
     return res?.data;
 }

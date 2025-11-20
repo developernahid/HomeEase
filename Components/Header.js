@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 const SearchIcon = () => (
     <svg className="absolute left-4 w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -15,56 +16,27 @@ const MenuIcon = () => (
     </svg>
 );
 
-const CheckIcon = () => (
-    <svg className="w-5 h-5 text-violet-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-    </svg>
-);
-
-
-const Header = () => {
-    const [user, setUser] = useState(null);
-
-    // const user = JSON.parse(window.localStorage.getItem('user'));
-    // console.log(user)
-
+const Header = ({ user }) => {
+    const { logout, loading } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    // useEffect(() => {
-    //     const storedUser = window.localStorage.getItem('user').stringify;
-    //     // console.log(storedUser.stringify)
-    //     if (storedUser) {
-    //         setUser(JSON.parse(storedUser));
-    //     }
-    // }, []);
-
     const [openedRoute, setOpenedRoute] = useState("");
 
     useEffect(() => {
-        setOpenedRoute(window.location.pathname);
+        if (typeof window !== 'undefined') {
+            setOpenedRoute(window.location.pathname);
+        }
     }, []);
 
-    console.log(openedRoute)
-
-
     const isActive = (path) => openedRoute === path;
-
-    const handleLogout = async () => {
-        const res = await fetch('/api/logout', {
-            method: 'POST',
-        });
-        if (res.ok) {
-            window.localStorage.removeItem('user');
-            window.location.href = '/login';
-        }
-    };
 
     const handleActiveChange = (path) => {
         setOpenedRoute(path);
     }
 
-
-
+    const handleLogout = async () => {
+        await logout();
+        window.location.href = '/login';
+    };
 
     return (
         <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -77,35 +49,30 @@ const Header = () => {
                     </div>
 
                     <nav className="hidden lg:flex items-center gap-8">
-                        <Link href="/" onClick={() => {
-                            handleActiveChange('/')
-                        }} className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600 '}`}>Home</Link>
-                        <Link href="/services" onClick={() => {
-                            handleActiveChange('/services')
-                        }} className={`text-sm font-medium transition-colors ${isActive('/services') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Services</Link>
-                        <Link href="/about" onClick={() => {
-                            handleActiveChange('/about')
-                        }} className={`text-sm font-medium transition-colors ${isActive('/about') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>About</Link>
-                        <Link href="/contact" onClick={() => {
-                            handleActiveChange('/contact')
-                        }} className={`text-sm font-medium transition-colors ${isActive('/contact') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Contact</Link>
+                        <Link href="/" onClick={() => handleActiveChange('/')} className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600 '}`}>Home</Link>
+                        <Link href="/services" onClick={() => handleActiveChange('/services')} className={`text-sm font-medium transition-colors ${isActive('/services') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Services</Link>
+                        <Link href="/about" onClick={() => handleActiveChange('/about')} className={`text-sm font-medium transition-colors ${isActive('/about') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>About</Link>
+                        <Link href="/contact" onClick={() => handleActiveChange('/contact')} className={`text-sm font-medium transition-colors ${isActive('/contact') ? 'text-violet-600 border-2 p-2 rounded-xl' : 'text-gray-500 hover:text-violet-600'}`}>Contact</Link>
                     </nav>
-                    {
-                        user ? (<div>
+
+                    {!loading && (
+                        user ? (
                             <div className="hidden sm:flex items-center gap-3">
                                 <Link href={"/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
                                 <button onClick={handleLogout} className="w-full px-5 py-2.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
                             </div>
-                        </div>) : (<div className="hidden sm:flex items-center gap-3">
-                            <Link href={"/login"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Sign In</button></Link>
-                            <Link href={"/register"}><button className="w-full px-5 py-2.5 text-sm font-medium text-white bg-violet-600 rounded-lg hover:bg-violet-700 transition-colors">Sign Up</button></Link>
-                        </div>)
-                    }
+                        ) : (
+                            <div className="hidden sm:flex items-center gap-3">
+                                <Link href={"/login"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Sign In</button></Link>
+                                <Link href={"/register"}><button className="w-full px-5 py-2.5 text-sm font-medium text-white bg-violet-600 rounded-lg hover:bg-violet-700 transition-colors">Sign Up</button></Link>
+                            </div>
+                        )
+                    )}
 
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none">
                         <MenuIcon />
                     </button>
-                </div >
+                </div>
 
                 {isMenuOpen && (
                     <div className="lg:hidden pb-4">
@@ -115,16 +82,26 @@ const Header = () => {
                             <Link href="/about" className={`px-4 py-2 rounded-md transition-colors ${isActive('/about') ? 'bg-violet-100/60 text-violet-600' : 'text-gray-700 hover:bg-gray-100 hover:text-violet-600'}`}>About</Link>
                             <Link href="/contact" className={`px-4 py-2 rounded-md transition-colors ${isActive('/contact') ? 'bg-violet-100/60 text-violet-600' : 'text-gray-700 hover:bg-gray-100 hover:text-violet-600'}`}>Contact</Link>
                             <div className="border-t border-gray-200 mt-2 pt-4 flex flex-col gap-3">
-                                <Link href={"/login"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Sign In</button></Link>
-                                <Link href={"/register"}><button className="w-full px-5 py-2.5 text-sm font-medium text-white bg-violet-600 rounded-lg hover:bg-violet-700 transition-colors">Sign Up</button></Link>
+                                {!loading && (
+                                    user ? (
+                                        <>
+                                            <Link href={"/profile"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">{user?.username}</button></Link>
+                                            <button onClick={handleLogout} className="w-full px-5 py-2.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Link href={"/login"}><button className="w-full px-5 py-2.5 text-sm font-medium text-gray-800 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Sign In</button></Link>
+                                            <Link href={"/register"}><button className="w-full px-5 py-2.5 text-sm font-medium text-white bg-violet-600 rounded-lg hover:bg-violet-700 transition-colors">Sign Up</button></Link>
+                                        </>
+                                    )
+                                )}
                             </div>
                         </nav>
                     </div>
                 )}
-            </div >
-        </header >
+            </div>
+        </header>
     );
 };
-
 
 export default Header;
