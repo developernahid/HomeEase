@@ -29,8 +29,8 @@ const Footer = () => {
                 </div>
                  <div className="w-full md:w-1/4 p-4 text-left">
                     <h3 className="text-lg mb-2 border-b-2 border-orange-500 inline-block pb-1">Coonect With Us</h3>
-                    <p><a href="#" className="text-white no-underline hover:underline hover:text-orange-500">Facebook</a></p>
-                    <p><a href="#" className="text-white no-underline hover:underline hover:text-orange-500">YouTube</a></p>
+                    <p><a href="https://www.facebook.com/" className="text-white no-underline hover:underline hover:text-orange-500">Facebook</a></p>
+                    <p><a href="https://www.youtube.com/" className="text-white no-underline hover:underline hover:text-orange-500">YouTube</a></p>
                 </div>
             </div>
         </footer>

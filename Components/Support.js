@@ -88,20 +88,46 @@ const SupportSection = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex flex-col items-center justify-between rounded-xl bg-white p-8 shadow-sm md:flex-row md:p-12">
           {/* Text and Buttons */}
-          <div className="mb-8 text-center md:mb-0 md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">
-              Can't find your desired service? Let us know 24/7 in 16516.
-            </h3>
-            <div className="mt-6 flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-              <button className="rounded-lg bg-pink-600 px-6 py-3 text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">
-                Request a service
-              </button>
-              <button className="flex items-center justify-center rounded-lg border border-pink-500 px-6 py-3 text-base font-semibold text-pink-600 transition-all duration-300 hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                16516
-              </button>
-            </div>
-          </div>
+         <div className="mb-8 text-center md:mb-0 md:text-left">
+  <h3 className="text-2xl font-semibold text-gray-800">
+    Can't find your desired service? Let us know 24/7 in 16516.
+  </h3>
+
+  <div className="mt-6 flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+
+    {/* Request a service → Go to service page */}
+    <a
+      href="/services"
+      className="rounded-lg bg-pink-600 px-6 py-3 text-base font-semibold text-white shadow-md transition-all duration-300 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 text-center"
+    >
+      Request a service
+    </a>
+
+    {/* Call button → tel:16516 */}
+    <a
+      href="tel:16516"
+      className="flex items-center justify-center rounded-lg border border-pink-500 px-6 py-3 text-base font-semibold text-pink-600 transition-all duration-300 hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+    >
+      <svg
+        className="mr-2 h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+        />
+      </svg>
+      16516
+    </a>
+
+  </div>
+</div>
+
           
           {/* Support Agent Image Placeholder */}
           <div className="w-full max-w-xs md:w-1/3">

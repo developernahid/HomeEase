@@ -73,17 +73,17 @@ const ContactPage = () => {
 
                     <div className="space-y-3">
                         <div className="flex items-center space-x-3">
-                            <MailIcon className="w-5 h-5" />
-                            <span>support@example.com</span>
+                        <MailIcon className="w-5 h-5" />
+                        <a href="mailto:homeease@gmail.com" className="hover:underline">homeease@gmail.com
+                        </a>
                         </div>
-                        <div className="flex items-center space-x-3">
-                            <PhoneIcon className="w-5 h-5" />
-                            <span>+880 1234-567890</span>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <MapPinIcon className="w-5 h-5" />
-                            <span>Dhaka, Bangladesh</span>
-                        </div>
+
+                    <div className="flex items-center space-x-3">
+                    <PhoneIcon className="w-5 h-5" />
+                    <a href="tel:+8801868260224" className="hover:underline"> +8801868260224
+                    </a> 
+                    </div>
+  
                     </div>
                 </div>
 
