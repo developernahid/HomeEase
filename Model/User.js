@@ -34,6 +34,60 @@ const userSchema = new mongoose.Schema({
     photoURL: {
         type: String,
         default: ''
+    },
+    phoneNumber: {
+        type: String,
+    },
+    businessName: {
+        type: String,
+    },
+    businessAddress: {
+        type: String,
+    },
+    serviceType: {
+        type: String,
+    },
+    experience: {
+        type: String,
+    },
+    serviceArea: {
+        type: String,
+    },
+    workingHoursStart: {
+        type: String,
+    },
+    workingHoursEnd: {
+        type: String,
+    },
+    receiveOrderType: {
+        type: String,
+    },
+    documents: {
+        type: [String],
+    },
+    ownerName: {
+        type: String,
+    },
+    nicNumber: {
+        type: String,
+    },
+    nicExpiryDate: {
+        type: String,
+    },
+    paymentMethod: {
+        type: String,
+    },
+    pricingMethod: {
+        type: String,
+    },
+    hourlyFee: {
+        type: String,
+    },
+    flatFee: {
+        type: String,
+    },
+    additionalInfo: {
+        type: String,
     }
 });
 

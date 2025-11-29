@@ -1,5 +1,5 @@
 // models/Product.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -208,4 +208,6 @@ productSchema.methods.isDiscountActive = function () {
 
     return true;
 };
-export const Product = mongoose.models.Product || mongoose.model('product', productSchema);
+
+export const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+

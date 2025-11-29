@@ -43,8 +43,29 @@ export const POST = async (request) => {
         const userResponse = {
             _id: user._id.toString(),
             username: user.username,
-            email: user.email,
-            role: user.role,
+            email: user.email || '',
+            role: user.role || '',
+            photoURL: user.photoURL || '',
+            phoneNumber: user.phoneNumber || '',
+            businessName: user.businessName || '',
+            businessAddress: user.businessAddress || '',
+            serviceType: user.serviceType || '',
+            experience: user.experience || '',
+            serviceArea: user.serviceArea || '',
+            workingHoursStart: user.workingHoursStart || '',
+            workingHoursEnd: user.workingHoursEnd || '',
+            receiveOrderType: user.receiveOrderType || '',
+            documents: user.documents || [],
+            ownerName: user.ownerName || '',
+            nicNumber: user.nicNumber || '',
+            nicExpiryDate: user.nicExpiryDate || '',
+            paymentMethod: user.paymentMethod || '',
+            pricingMethod: user.pricingMethod || '',
+            hourlyFee: user.hourlyFee || '',
+            flatFee: user.flatFee || '',
+            additionalInfo: user.additionalInfo || '',
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
         };
 
         const cookieStore = await cookies();
@@ -54,6 +75,8 @@ export const POST = async (request) => {
             maxAge: 60 * 60 * 24, // 1 day
             path: '/',
         });
+
+        console.log(userResponse);
 
         return NextResponse.json({ user: userResponse }, { status: 200 });
 
