@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 // SVG Icon Components
 const MaskIcon = () => (
     <svg className="w-8 h-8 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c-3.313 0-6 2.687-6 6v4h12V8c0-3.313-2.687-6-6-6zm-4 8H4v6h4v-6zm8 0h4v6h-4v-6zM8 14H4a2 2 0 00-2 2v2h6v-4zm8 0h4a2 2 0 012 2v2h-6v-4z" />
-        <path d="M4 10c0-1.104.896-2 2-2h12c1.104 0 2 .896 2 2v2H4v-2z" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M4 10c0-1.104.896-2 2-2h12c1.104 0 2 .896 2 2v2H4v-2z" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -58,7 +59,7 @@ const SafetyFeatures = () => {
 
     return (
         <div className="bg-gray-50 flex items-center justify-center min-h-screen font-sans">
-             <div className="container mx-auto p-4 lg:p-8">
+            <div className="container mx-auto p-4 lg:p-8">
                 <section className="bg-white p-8 rounded-2xl shadow-md">
                     <div className="max-w-6xl mx-auto">
                         {/* Header Text */}
@@ -69,11 +70,11 @@ const SafetyFeatures = () => {
 
                         {/* Main Content Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
-                            
+
                             {/* Left Side: Feature Cards */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {features.map((feature, index) => (
-                                    <FeatureCard 
+                                    <FeatureCard
                                         key={index}
                                         title={feature.title}
                                         bgColor={feature.bgColor}
@@ -84,9 +85,9 @@ const SafetyFeatures = () => {
 
                             {/* Right Side: Image */}
                             <div className="relative">
-                                <img 
-                                    src="/plumbing-services.jpg" 
-                                    alt="Team ensuring safety" 
+                                <img
+                                    src="/plumbing-services.jpg"
+                                    alt="Team ensuring safety"
                                     className="rounded-xl w-full h-auto object-cover"
                                 />
                                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-600 rounded-b-xl flex items-center justify-center">

@@ -1,4 +1,5 @@
-import ServiceCategory from "@/Model/ServiceCategory";
+
+import { ServiceCategory } from "@/Model/ServiceCategory";
 import connect from "@/utils/db";
 import { NextResponse } from "next/server";
 
