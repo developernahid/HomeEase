@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import React from 'react';
 import Header from './Header';
@@ -33,7 +34,7 @@ export const ServiceCard = ({ image, title, description, href }) => (
         <div className="p-5">
             <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
             <p className="text-sm text-gray-500 mb-4 h-10">{description}</p>
-            <Link href={href} className="w-full py-2.5 px-4 rounded-lg bg-violet-600 text-white font-medium text-sm hover:bg-violet-700 transition-colors">Book Now</Link>  
+            <Link href={href} className="w-full py-2.5 px-4 rounded-lg bg-violet-600 text-white font-medium text-sm hover:bg-violet-700 transition-colors">Book Now</Link>
         </div>
     </div>
 );
