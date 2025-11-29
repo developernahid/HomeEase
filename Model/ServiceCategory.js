@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 // This is a sub-document schema for the objects in the 'featured' array.
@@ -46,6 +46,4 @@ const ServiceCategorySchema = new Schema({
 });
 
 // Create and export the model
-const ServiceCategory = mongoose.model('service', ServiceCategorySchema);
-
-module.exports = ServiceCategory;
+export const ServiceCategory = mongoose.models.service || mongoose.model('service', ServiceCategorySchema);
